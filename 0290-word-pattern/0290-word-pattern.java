@@ -12,10 +12,10 @@ class Solution {
                     return false;
             }
             else{
-                if(set.contains(word[i]))
+                if(hm.containsValue(word[i]))
                     return false;
                 hm.put(c,word[i]);
-                set.add(word[i]);
+                
             }
         } 
         return true;
