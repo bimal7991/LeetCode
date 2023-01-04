@@ -101,8 +101,10 @@ public class Trie {
         return node.isEnd();
     }
     public static boolean isPresent(String word){
-         for(int i=1;i<=word.length();i++){
-             if(!search(word.substring(0,i)))
+        TreeNode node=root;
+         for(int i=0;i<word.length();i++){
+             node=node.get(word.charAt(i));
+             if(!node.isEnd())
                return false;
                
          }
