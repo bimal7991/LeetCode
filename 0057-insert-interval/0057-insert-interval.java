@@ -1,27 +1,24 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] n) {
         ArrayList<int[]> list=new ArrayList<>();
-        ArrayList<int[]> arr=new ArrayList<>();
-        for(int inter[]:intervals){
-            arr.add(inter);
-        }
-        arr.add(n);
-        Collections.sort(arr,(a,b)-> a[0]==b[0]?a[1]-b[1]:a[0]-b[0]);
-        int start=arr.get(0)[0];
-        int end=arr.get(0)[1];
         
-        for(int i=1;i<arr.size();i++){           
-            if(arr.get(i)[0]>=start && arr.get(i)[0]<=end){
-                end=Math.max(arr.get(i)[1],end);
-            }
-            else{
-                list.add(new int[]{start,end});
-                start=arr.get(i)[0];
-                end=arr.get(i)[1];
-            }
+        
+        int i=0;
+        while(i<intervals.length && n[0]>intervals[i][1]){
+            list.add(intervals[i++]);
         }
-          list.add(new int[]{start,end});
-         
+        
+        while(i<intervals.length && n[1]>=intervals[i][0]  ){           
+            
+                n[0]=Math.min(n[0],intervals[i][0]);
+                n[1]=Math.max(n[1],intervals[i][1]);
+               i++;
+            }
+        
+         list.add(n);
+         while(i<intervals.length){
+             list.add(intervals[i++]);
+         }
         
         return list.toArray(new int[0][0]);
         
