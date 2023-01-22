@@ -7,11 +7,9 @@ class Solution {
     }
     
    void helper(String s, List<String> sub, List<List<String>>  ans,int ind){
-        
         if(ind==s.length()){
             ans.add(new ArrayList<>(sub));
         }
-        
         for(int i=ind;i<s.length();i++){
             if(isPalindrome(s.substring(ind,i+1))){
                 String p=s.substring(ind,i+1);
@@ -24,23 +22,13 @@ class Solution {
     }
      boolean isPalindrome(String str)
     {
- 
-       
         int i = 0, j = str.length() - 1;
- 
-       
         while (i < j) {
- 
-            
             if (str.charAt(i) != str.charAt(j))
-                return false;
- 
-           
+                return false;          
             i++;
             j--;
         }
- 
-        
         return true;
     }
 }
