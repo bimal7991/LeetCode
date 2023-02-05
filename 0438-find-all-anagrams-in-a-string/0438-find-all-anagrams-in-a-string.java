@@ -10,7 +10,7 @@ class Solution {
         int j=0;
         int n=s.length();
         int freq2[]=new int[26];
-        while(j<n && i<=j){
+        while(j<n ){
             char c=s.charAt(j);
             freq2[c-'a']++;
             
