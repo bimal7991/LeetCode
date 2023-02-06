@@ -124,36 +124,27 @@ class Solution
         return -1;
         helper(node,0,hm);
         long sum=0;
-           
-               LinkedList<Integer> li=hm.get(0);
-                for(int j=1;j<li.size();j++){
-                    sum=sum+li.get(j);
-                }
-                return sum;
-            
-        
-       
+        LinkedList<Integer> li=hm.get(0);
+        for(int j=1;j<li.size();j++)
+        {
+            sum=sum+li.get(j);
+        }
+        return sum;        
     }
     
     Node getNode(Node root,int target){
         
           if(root==null)
           return null;
-        if(root.data==target)
+         if(root.data==target)
           return root;
        
-          Node left= getNode(root.left,target);
-           
+          if(root.data>target)
+             return getNode(root.left,target);
+           else       
+          return getNode(root.right,target);
           
-          Node right=getNode(root.right,target);
           
-          if(left==null && right==null)
-          return null;
-          
-          else if(left!=null)
-          return left;
-          else 
-            return right;
             
     }
     
