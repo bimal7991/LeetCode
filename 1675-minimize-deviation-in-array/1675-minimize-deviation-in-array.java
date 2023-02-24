@@ -1,11 +1,13 @@
 class Solution {
     public int minimumDeviation(int[] nums) {
+         int min=Integer.MAX_VALUE;
         for(int i=0;i<nums.length;i++){
             if(nums[i]%2==1)
                 nums[i]=2*nums[i];
+            min=Math.min(min,nums[i]);
         }
-        Arrays.sort(nums);
-        int min=nums[0];
+     
+       
         PriorityQueue<Integer> max=new PriorityQueue<Integer>((a,b)->b-a);
         for(int i:nums){
             max.add(i);
