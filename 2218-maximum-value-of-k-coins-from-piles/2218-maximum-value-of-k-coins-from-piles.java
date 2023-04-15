@@ -4,8 +4,9 @@ class Solution {
         for(int d[]:dp){
             Arrays.fill(d,-1);
         }
-        return helper(0,piles,dp,k);
+        helper(0,piles,dp,k);
         
+        return dp[0][k];
     }
     int helper(int index,List<List<Integer>> piles,int dp[][],int k){
         if(index>=piles.size() )
