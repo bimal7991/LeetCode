@@ -3,29 +3,28 @@ class Solution {
     int second=0;
     
     public boolean PredictTheWinner(int[] nums) {
-     int ans=helper(nums,0,nums.length-1,true,0);
+     return helper(nums,0,nums.length-1,0,0);
         
-        return ans>=0;
-    }
-    int helper(int []nums,int low,int high,boolean turn,int sum){
-        if(low>high)
-        {
-             
-            return sum;
-        }
-        
-        
-        if(turn){
-            int start=helper(nums,low+1,high,!turn,sum+nums[low]);
-            int end=helper(nums,low,high-1,!turn,sum+nums[high]);
-            return Math.max(start,end);
-           
-        }
-        else{
-            int start=helper(nums,low+1,high,!turn,sum-nums[low]);
-            int end=helper(nums,low,high-1,!turn,sum-nums[high]);
-            return Math.min(start,end);
-        }
        
+    }
+    boolean helper(int []nums,int low,int high,int p1,int p2){
+           if(low>high){
+               if(p1>=p2)
+                   return true;
+               else
+                   return false;
+           }       
+         return !helper2(nums,low+1,high,p1+nums[low],p2) || 
+              !helper2(nums,low,high-1,p1+nums[high],p2);
+    }
+    boolean helper2(int nums[],int low,int high,int p1,int p2){
+        if(low>high){
+               if(p1<p2)
+                   return true;
+               else
+                   return false;
+           }   
+        return !helper(nums,low+1,high,p1,p2+nums[low]) || 
+              !helper(nums,low,high-1,p1,p2+nums[high]);
     }
 }
