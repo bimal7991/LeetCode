@@ -18,9 +18,7 @@ class Solution {
             }
            
         }
-        int dis[]=new int[n+1];
-	  			Arrays.fill(dis, 999999);
-	  		return 	minimumSpanningTree(0, arr,n,points);
+	  	return 	minimumSpanningTree(0, arr,n,points);
         
         
         
@@ -36,25 +34,29 @@ class Solution {
 		PriorityQueue<NodeDis> pq=new PriorityQueue<NodeDis>(n,new NodeDis());
 		pq.add(new NodeDis(0,0));
 		key[start]=0;
+       int sum=0;
 		while(!pq.isEmpty()) {
 			NodeDis par=pq.poll();
+            if(mst[par.getNode()])
+                continue;
 			mst[par.getNode()]=true;
+            sum+=par.getWeight();    
 			for(NodeDis child:arr[par.getNode()]) {
-				if(mst[child.getNode()]==false &&   child.getWeight()<key[child.getNode()]) {
+				if(mst[child.getNode()]==false) {
 					key[child.getNode()]=child.getWeight();
 					parent[child.getNode()]=par.getNode();
 					pq.add(new NodeDis(child.getNode(),key[child.getNode()]));
 				}
 			}
 		}
-       int sum=0;
-		for(int i=1;i<n;i++) {
-            int dis=Math.abs(points[parent[i]][0]-points[i][0])+Math.abs(points[parent[i]][1]-points[i][1]);
-            sum=sum+dis;
+      
+// 		for(int i=1;i<n;i++) {
+//             int dis=Math.abs(points[parent[i]][0]-points[i][0])+Math.abs(points[parent[i]][1]-points[i][1]);
+//             sum=sum+dis;
             
-		 // System.out.println(parent[i]+" -> "+i);
-           // System.out.println(sum);
-		}
+// 		 // System.out.println(parent[i]+" -> "+i);
+//            // System.out.println(sum);
+// 		}
        return sum;
 	}
 
