@@ -5,6 +5,7 @@ class Solution {
         for(String w:words){
             hm.put(w,hm.getOrDefault(w,0)+1);
         }
+        int ans=0;
         for(String w:words){
             int max=0;
             for(int i=0;i<w.length();i++){
@@ -12,12 +13,10 @@ class Solution {
                 max=Math.max(max,hm.getOrDefault(key,0));
             }
             hm.put(w,max+1);
-        }
-        int ans=0;
-        for(String s:hm.keySet()){
-            ans=Math.max(ans,hm.get(s));
+            ans=Math.max(ans,max+1);
         }
         return ans;
+        
         
         
     }
