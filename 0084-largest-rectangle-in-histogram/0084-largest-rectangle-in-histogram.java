@@ -2,7 +2,7 @@ class Solution {
     public int largestRectangleArea(int[] heights) {
         int next[]=nextSmaller(heights);
         int prev[]=prevSmaller(heights);
-          System.out.println(Arrays.toString(next));
+          //System.out.println(Arrays.toString(next));
         int max=0;
         for(int i=0;i<heights.length;i++){
             int h=heights[i];
