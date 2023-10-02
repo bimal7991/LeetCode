@@ -1,26 +1,28 @@
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        Stack<Integer> stack = new Stack<>(); // Create a stack to store the indices of the bars
-        int maxArea = 0; // Initialize the maximum area to be 0
-        
-        for (int i = 0; i < heights.length; i++) {
-            // Pop the previous bar from the stack as long as it is taller than the current bar
-            while (!stack.isEmpty() && heights[stack.peek()] > heights[i]) {
-                int h = heights[stack.pop()];
-                int w = stack.isEmpty() ? i : i - stack.peek() - 1;
-                maxArea = Math.max(maxArea, h * w);
-            }
-            
-            stack.push(i);
+        Stack<Integer> st=new Stack<>();
+        int max=0;
+        for(int i=0;i<heights.length;i++){
+             int min=Integer.MAX_VALUE;
+             while(!st.isEmpty() && heights[i]<heights[st.peek()]){
+                 int h=heights[st.pop()];
+                 int w=st.isEmpty()? i :i-st.peek()-1;
+                  max=Math.max(max,w*h);
+                
+             }
+             st.push(i);
+             
         }
+        int min=Integer.MAX_VALUE;
         
-        // Calculate the areas of the remaining rectangles in the stack
-        while (!stack.isEmpty()) {
-            int h = heights[stack.pop()];
-            int w = stack.isEmpty() ? heights.length : heights.length - stack.peek() - 1;
-            maxArea = Math.max(maxArea, h * w);
+        System.out.println(st);
+        while(!st.isEmpty()){
+            int h=st.pop();
+            int w=st.isEmpty()? heights.length :heights.length-st.peek()-1;
+            max=Math.max(max,w*heights[h]);
+           
         }
+        return max;
         
-        return maxArea;
     }
 }
