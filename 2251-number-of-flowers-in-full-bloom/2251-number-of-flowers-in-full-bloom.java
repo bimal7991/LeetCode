@@ -1,25 +1,49 @@
 class Solution {
     public int[] fullBloomFlowers(int[][] flowers, int[] people) {
-        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[0]==b[0]?a[1]-b[1]:a[0]-b[0]);
-        for(int i=0;i<people.length;i++){
-            pq.add(  new int[]{people[i],1,i});
+        int start[]=new int[flowers.length];
+        int end[]=new int[flowers.length];
+        for(int i=0;i<flowers.length;i++){
+            start[i]=flowers[i][0];
+            end[i]=flowers[i][1];
         }
-        for(int f[]:flowers){
-            pq.add(new int[]{f[0],0});
-            pq.add(new int[]{f[1],2});
-        }
+        Arrays.sort(start);
+        Arrays.sort(end);
         int ans[]=new int[people.length];
-        int size=pq.size();
-        int count=0;
-        for(int i=0;i<size;i++){
-            int curr[]=pq.poll();
-            if(curr[1]==0)
-                count++;
-            else if(curr[1]==2)
-                count--;
-            else{
-                ans[curr[2]]=count;
+        for(int i=0;i<people.length;i++){
+            int upper=findUpper(start,people[i]);
+            int lower=findLower(end,people[i]);
+            ans[i]=upper-lower;
+        }
+        return ans;
+        
+    }
+    int findUpper(int nums[],int n){
+        int low=0;
+        int high=nums.length-1;
+        int ans=-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(nums[mid]<=n){
+                ans=mid;
+                low=mid+1;
             }
+            else
+                high=mid-1;
+        }
+        return ans;
+    }
+    int findLower(int nums[],int n){
+        int low=0;
+        int high=nums.length-1;
+        int ans=-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(nums[mid]<n){
+                ans=mid;
+                low=mid+1;
+            }
+            else
+                high=mid-1;
         }
         return ans;
     }
