@@ -12,6 +12,7 @@ class Solution {
          int mindex=0;
          int low=0;
          int high=m.length()-2;
+         //finding peak element first and store it in mindex
          while(low<=high){
              int mid=(low+high)/2;
              if(m.get(mid)<m.get(mid+1)){
@@ -21,9 +22,11 @@ class Solution {
              else
                  high=mid-1;
          }
-         
+          // mountain array -> increasing .... peakElement/mindex .........decreasing 
+        
          low=0;
          high=mindex;
+        // seacrh the target in increasing order in mountain array
          while(low<=high){
              int mid=(low+high)/2;
              if(m.get(mid)==target)
@@ -33,6 +36,7 @@ class Solution {
               else
                   high=mid-1;
          }
+        // search the target in decreasing order in mountain array
          low=mindex;
          high=m.length()-1;
          while(low<=high){
