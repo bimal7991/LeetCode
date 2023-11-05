@@ -1,25 +1,20 @@
 class Solution {
-    public int getWinner(int[] nums, int k) {
-        int m=0;
-        for(int i:nums)
-            m=Math.max(m,i);
-        int j=1;
-        
-        HashMap<Integer,Integer> hm=new LinkedHashMap<>();
-        while(j<nums.length){
-            if(nums[0]>nums[j]){
-                hm.put(nums[0],hm.getOrDefault(nums[0],0)+1);
-                j++;
-            }
+    public int getWinner(int[] arr, int k) {
+        int winner = arr[0];
+        int wins = 0;
+        for(int i = 1; i < arr.length; i++){
+            if(winner > arr[i])
+			    // increment wins count
+                wins++;
             else{
-                nums[0]=nums[j];
-                 hm.put(nums[0],hm.getOrDefault(nums[0],0)+1);
-                j++;
+                wins = 1;
+				// new winner
+                winner = arr[i];
             }
-            if(hm.get(nums[0])==k)
-                return nums[0];
+            if(wins == k)
+			    // if wins count is k, then return winner 
+                break;
         }
-       
-        return m;
+        return winner;
     }
 }
