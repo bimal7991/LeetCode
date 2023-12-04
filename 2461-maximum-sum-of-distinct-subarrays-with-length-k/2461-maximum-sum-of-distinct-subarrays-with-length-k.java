@@ -10,21 +10,15 @@ class Solution {
             if(j-i+1<k)
                 j++;
             else if(j-i+1==k){
-                while(j-i+1>hm.size()){
-                    hm.put(nums[i],hm.get(nums[i])-1);
-                    sum=sum-nums[i];
-                    if(hm.get(nums[i])==0)
-                        hm.remove(nums[i]);
-                    i++;
-                }
+                
                 if(hm.size()==k){
                     max=Math.max(max,sum);
+                }
                     hm.put(nums[i],hm.get(nums[i])-1);
                     sum=sum-nums[i];
                     if(hm.get(nums[i])==0)
                         hm.remove(nums[i]);
                     i++;
-                }
                 j++;
             }
             
