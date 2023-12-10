@@ -16,7 +16,7 @@ class Solution {
                 while(j-i+1-repeat>k){
                     c=s.charAt(i);
                     hm.put(c,hm.getOrDefault(c,0)-1); 
-                    repeat=Math.max(repeat,hm.get(c));
+                    
                     i++;
                 }
                 if(j-i+1-repeat<=k){
