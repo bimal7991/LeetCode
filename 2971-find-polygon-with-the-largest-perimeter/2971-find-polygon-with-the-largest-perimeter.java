@@ -6,20 +6,11 @@ class Solution {
         for(int i=1;i<nums.length;i++){
             prefix[i]=prefix[i-1]+nums[i];
         }
-        int i=0,j=2;
+        int i=0,j=1;
         long max=-1;
-        while(j<nums.length){
-            if(i==0){
-                if(nums[j]<prefix[j-1]){
-                    max=Math.max(max,prefix[j]);
-                }
-            }
-            else if(nums[j]<prefix[j-1]-prefix[i]){
-                 max=Math.max(max,prefix[j]-prefix[i]);
-            }
-            else{
-                i++;
-            }
+        while(j<nums.length-1){
+            if(prefix[j]>nums[j+1])
+                max=Math.max(max,prefix[j+1]);
             j++;
         }
         return max;
