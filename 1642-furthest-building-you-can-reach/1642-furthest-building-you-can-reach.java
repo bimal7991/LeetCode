@@ -1,7 +1,5 @@
 class Solution {
-    public int furthestBuilding(int[] h, int B, int l) {
-       long b=B;
-       
+    public int furthestBuilding(int[] h, int b, int l) {
         int i=0;
         PriorityQueue<Integer> pq=new PriorityQueue<Integer>((a,c)->c-a);
         for(i=1;i<h.length;i++){
@@ -25,9 +23,7 @@ class Solution {
                     b=b-diff;
                     pq.add(diff);
                 }       
-            } 
-            
-            
+            }     
             
         }
         return i-1;
