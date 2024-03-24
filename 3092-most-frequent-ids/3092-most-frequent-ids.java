@@ -1,6 +1,6 @@
 class Solution {
     public long[] mostFrequentIDs(int[] nums, int[] freq) {
-        Map<Integer, Long> hm = new TreeMap<>();
+        Map<Integer, Long> hm = new HashMap<>();
         PriorityQueue<Pair> pq=new PriorityQueue<Pair>((a,b)->Long.compare(b.count, a.count));
         int max=0;
         long ans[]=new long[nums.length];
