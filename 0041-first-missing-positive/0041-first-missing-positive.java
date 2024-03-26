@@ -14,7 +14,7 @@ class Solution {
                     nums[ind]=-(n+1);
             }
         }
-       System.out.println(Arrays.toString(nums));
+       // System.out.println(Arrays.toString(nums));
         for(int i=0;i<n;i++)
         {
             if(nums[i]>=0)
