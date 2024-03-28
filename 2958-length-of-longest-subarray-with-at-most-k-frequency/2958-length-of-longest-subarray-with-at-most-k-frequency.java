@@ -7,7 +7,7 @@ class Solution {
         while(j<nums.length){
             hm.put(nums[j],hm.getOrDefault(nums[j],0)+1);
             while(hm.get(nums[j])>k){
-                hm.put(nums[i],hm.getOrDefault(nums[i],0)-1);
+                hm.put(nums[i],hm.get(nums[i])-1);
                 i++;
             }
             max=Math.max(max,j-i+1);
