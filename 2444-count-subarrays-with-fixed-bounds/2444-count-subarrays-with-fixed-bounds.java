@@ -1,21 +1,19 @@
 class Solution {
     public long countSubarrays(int[] nums, int minK, int maxK) {
-       long ans=0;
-       int max=-1,min=-1,j=-1; 
-       for(int i=0;i<nums.length;i++){
-            if(nums[i]<minK || nums[i]>maxK){
-                j=i;
-            }
-            if(nums[i]==minK)
-                min=i;
-            if(nums[i]==maxK)
-                max=i;
+        int i=-1,minIndex=-1,maxIndex=-1,j=0;
+        long count=0;
+        while(j<nums.length){
+            if(nums[j]<minK || nums[j]>maxK)
+                i=j;
             
-            ans+=Math.max(0,Math.min(min,max)-j);
+            if(nums[j]==minK)
+                minIndex=j;
+            if(nums[j]==maxK)
+                maxIndex=j;
             
+            count=count+Math.max(0,Math.min(minIndex,maxIndex)-i);
+            j++;
         }
-        return ans;
-       
-           
+        return count;
     }
 }
