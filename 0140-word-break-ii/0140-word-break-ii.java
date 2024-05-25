@@ -1,34 +1,32 @@
 class Solution {
     public List<String> wordBreak(String s, List<String> wordDict) {
-        HashSet<String> dict=new HashSet<String>(wordDict);
-        List<String> temp=new ArrayList<>();
-        List<String> res=new ArrayList<>();
-        helper(s,dict,0,temp,res);
-        return res;
-    }
-    
-    void helper(String s, HashSet<String> dict,int index,List<String> temp,List<String> res){
-        if(index==s.length())
-        {
-            StringBuilder sb=new StringBuilder();
-            for(int i=0;i<temp.size()-1;i++){
-                sb.append(temp.get(i)+" ");
-            }
-            sb.append(temp.get(temp.size()-1));
-            res.add(sb.toString());
-            //System.out.println(res);
-            return;
-        }        
-        
-        
-        for(int i=index;i<s.length();i++){
-            String str=s.substring(index,i+1);
-            if(!dict.contains(str))
-                continue;
-            temp.add(str);
-            helper(s,dict,i+1,temp,res);
-            temp.remove(temp.size()-1);
+        HashSet<String> hs=new HashSet<>();
+        for(String p:wordDict){
+            hs.add(p);
         }
+        List<String> ans=new ArrayList<>();
+        helper(s,0,0,ans,new ArrayList<String>(),hs);
+        return ans;
     }
-    
+  void helper(String s,int i,int j,List<String> ans,List<String> sub,HashSet<String> hs){
+      
+      if(j>=s.length()){
+        if(sub.size()==0)
+            return;
+          String p= String.join(" ", sub);
+          // System.out.println(p.length()+" "+sub.size()+" "+s.length());
+          if(p.length()-sub.size()+1==s.length())
+          ans.add(p);
+          return;
+      }
+      
+        if(hs.contains(s.substring(i,j+1))){
+            sub.add(s.substring(i,j+1));
+            helper(s,j+1,j+1,ans,sub,hs);
+            sub.remove(sub.size()-1);
+        }
+        helper(s,i,j+1,ans,sub,hs);
+        
+         
+    }
 }
