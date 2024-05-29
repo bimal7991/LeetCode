@@ -23,7 +23,7 @@ class Solution {
             else{
                 list.remove(list.size()-1);
             }
-            System.out.println(list);
+            
             count++;
         }
         return count;
