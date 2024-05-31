@@ -5,6 +5,7 @@ class Solution {
             xor=xor^i;
         }
         int rsbm=xor & -xor;
+        // System.out.println(rsbm);
         int x=0;
         int y=0;
         for(int i:nums){
