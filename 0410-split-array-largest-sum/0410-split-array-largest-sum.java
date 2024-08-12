@@ -1,35 +1,29 @@
 class Solution {
     public int splitArray(int[] nums, int k) {
-        long low=0;
-        long high=1000000000;
-        long ans=0;
-        while(low<=high){
-            long mid=(low+high)/2;
-            if(devidedCount(mid,nums,k)){
-                ans=mid;
-                high=mid-1;
-            }
-            else{
-                low=mid+1;
-            }
+        // for(int i=1;i<nums.length;i++){
+        //     nums[i]=nums[i]+nums[i-1];
+        // }
+        int dp[][]=new int[nums.length][k+1];
+        for(int d[]:dp){
+           Arrays.fill(d,-1); 
         }
-        return (int)ans;
-        
+        int ans=helper(nums,k,0,dp);
+        return ans;
     }
-  boolean devidedCount(long mid,int nums[],int k){
-        int count=1,i=0;
-        long sum=0;
-        while(i<nums.length){
-            if(nums[i]>mid)
-                return false;
-            if(sum+nums[i]<=mid){
-                sum=sum+nums[i];
-            }else{
-                sum=nums[i];
-                count++;
-            }
-            i++;
+    int helper(int nums[],int k,int i,int dp[][]){
+        if(i==nums.length && k==0){
+            return 0;
         }
-        return count<=k;
+        if(i==nums.length || k==0)
+            return Integer.MAX_VALUE;
+        if(dp[i][k]!=-1)
+            return dp[i][k];
+        int sum=0;
+        int ret=Integer.MAX_VALUE;
+        for(int l=i;l<nums.length;l++){
+            sum+=nums[l];
+            ret=Math.min(ret,Math.max(sum,helper(nums,k-1,l+1,dp)));
+        }
+        return dp[i][k]=ret;
     }
 }
