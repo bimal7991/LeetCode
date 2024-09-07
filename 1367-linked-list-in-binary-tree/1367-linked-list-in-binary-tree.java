@@ -25,31 +25,34 @@
  */
 class Solution {
     public boolean isSubPath(ListNode head, TreeNode root) {
-//         if(root==null)
-//             return false;
         
-//         if(root.val==head.val){
-//             return helper(head,root);
-//         }
-//         boolean left=isSubPath(head,root.left);
-//         boolean right=isSubPath(head,root.right);
-//         return left || right;
-        Queue<TreeNode> q=new LinkedList<>();
-        q.add(root);
-        while(!q.isEmpty()){
-            int s=q.size();
-            for(int i=0;i<s;i++){
-            TreeNode p=q.poll();
-            if(p.val==head.val && helper(head,p))
+        if(head==null)
+            return true;
+        if(root==null)
+            return false;
+        if(root.val==head.val){
+            if(helper(head,root))
                 return true;
-             if(p.left!=null)
-                 q.add(p.left);
-             if(p.right!=null)
-                 q.add(p.right);
-            }
-        
         }
-        return false;
+        boolean left=isSubPath(head,root.left);
+        boolean right=isSubPath(head,root.right);
+        return left || right;
+//         Queue<TreeNode> q=new LinkedList<>();
+//         q.add(root);
+//         while(!q.isEmpty()){
+//             int s=q.size();
+//             for(int i=0;i<s;i++){
+//             TreeNode p=q.poll();
+//             if(p.val==head.val && helper(head,p))
+//                 return true;
+//              if(p.left!=null)
+//                  q.add(p.left);
+//              if(p.right!=null)
+//                  q.add(p.right);
+//             }
+        
+//         }
+//         return false;
     }
     public boolean helper(ListNode head,TreeNode root){
         if(head==null)
