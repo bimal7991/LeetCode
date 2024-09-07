@@ -24,15 +24,31 @@
  */
 public class Solution {
     public bool IsSubPath(ListNode head, TreeNode root) {
-        if(root==null)
-            return false;
-        if(root.val==head.val){
-            if(Helper(head,root))
+        // if(root==null)
+        //     return false;
+        // if(root.val==head.val){
+        //     if(Helper(head,root))
+        //         return true;
+        // }
+        // bool left=IsSubPath(head,root.left);
+        // bool right=IsSubPath(head,root.right);
+        // return left || right;
+        Queue<TreeNode> q=new Queue<TreeNode>();
+        q.Enqueue(root);
+        while(q.Count!=0){
+            int s=q.Count;
+            for(int i=0;i<s;i++){
+            TreeNode p=q.Dequeue();
+            if(p.val==head.val && Helper(head,p))
                 return true;
+             if(p.left!=null)
+                 q.Enqueue(p.left);
+             if(p.right!=null)
+                 q.Enqueue(p.right);
+            }
+        
         }
-        bool left=IsSubPath(head,root.left);
-        bool right=IsSubPath(head,root.right);
-        return left || right;
+        return false;
     }
     public bool Helper(ListNode head,TreeNode root){
         if(head==null)
