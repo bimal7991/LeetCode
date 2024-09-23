@@ -1,23 +1,23 @@
 class Solution {
-    int n;
-    int[][] memo;
     public int minExtraChar(String s, String[] dictionary) {
-        n = s.length();
-        memo = new int[n][n];
-        for (int i = 0; i < n; i++) Arrays.fill(memo[i], n);
-        Set<String> words = new HashSet<>(Arrays.asList(dictionary));
-        return dfs(0, s, words);
-    }
-    private int dfs(int index, String s, Set<String> words) {
-        if (s.length() == 0) return 0;
-        if (memo[index][s.length() - 1] != n) return memo[index][s.length() - 1];
-        int res = s.length();
-        for (int i = 0; i < s.length(); i++) {
-            String str = s.substring(0, i + 1);
-            int curExtra = words.contains(str) ? 0 : i + 1;
-            res = Math.min(res, curExtra + dfs(i + 1, s.substring(i + 1), words));
+        int maxLen = s.length() + 1;
+        int[] dp = new int[maxLen];
+        Arrays.fill(dp, maxLen);
+        
+        dp[0] = 0;
+        Set<String> wordSet = new HashSet<>(Arrays.asList(dictionary));
+        
+        for (int i = 1; i < maxLen; i++) {
+            dp[i] = dp[i - 1] + 1;
+            
+            for (int length = 1; length <= i; length++) {
+                String substring = s.substring(i - length, i);
+                if (wordSet.contains(substring)) {
+                    dp[i] = Math.min(dp[i], dp[i - length]);
+                }
+            }
         }
-        memo[index][s.length() - 1] = res;
-        return res;
+        
+        return dp[maxLen - 1];        
     }
 }
