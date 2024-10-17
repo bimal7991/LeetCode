@@ -28,19 +28,13 @@ class Solution {
                 if(r>=0 && r<grid.length && c>=0 && c<grid[0].length && grid[r][c]==1){
                     grid[r][c]=2;
                     q.add(new int[]{r,c});
+                    sp--;
                 }
             }
             }
         }
         
-        for(int i=0;i<grid.length;i++){
-            for(int j=0;j<grid[0].length;j++){
-                if(grid[i][j]==1){
-                   return -1;
-                }
-            }
-        }
-        return count-1;
+        return sp!=0?-1: count-1;
         
     }
 }
