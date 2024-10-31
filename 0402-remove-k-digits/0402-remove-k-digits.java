@@ -1,35 +1,34 @@
 class Solution {
-    public String removeKdigits(String num, int k) {
-        Stack<Character> st=new Stack<>();
-        for(char c:num.toCharArray()){
-            if(st.isEmpty())
-                st.push(c);
-            else if(st.peek()-'0'>c-'0'){
-                while(!st.isEmpty() && k>0 && st.peek()-'0'>c-'0'){
-                    st.pop();
-                    k--;
-                }
-                st.push(c);
-            }
-            else
-                st.push(c);
-        }
-        while(k>0){
-            st.pop();
-            k--;
-        }
-        
-        StringBuilder s=new StringBuilder();
-        while(!st.isEmpty()){
-            s.append(st.pop());
-        }
-        String reverse=s.reverse().toString();
-        // System.out.println(reverse);
-        int i=0;
-        for( i=0;i<reverse.length();i++){
-            if(reverse.charAt(i)!='0')
-                break;
-        }
-        return reverse.substring(i).length()==0?"0":reverse.substring(i);
+   public String removeKdigits(String s, int k) {
+  Stack<Character> st=new Stack<>();
+int i=0;
+   for(i=0;i<s.length() && k>0 ;i++){
+     char  c=s.charAt(i);
+      while(!st.isEmpty()  && c-'0' <st.peek()-'0' && k>0)  {
+              st.pop();
+              k--;
+      }
+   st.push(c);
+  }  
+ while(!st.isEmpty() && k>0){
+st.pop();
+k--;
+}
+StringBuilder sb=new StringBuilder();
+while(!st.isEmpty()){
+sb.append(st.pop());
+}
+    String f=sb.reverse().toString()+s.substring(i);
+       k=0;
+for(k=0;k<f.length();k++)
+    if(f.charAt(k)!='0')
+    {
+        break;
     }
+       
+return (f.substring(k)).equals("")?"0":f.substring(k); 
+
+ 
+ }
+
 }
