@@ -5,50 +5,49 @@ class Solution {
         int dp[][]=new int[n][m];
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(i==0){
-                    dp[i][j]=matrix[i][j]=='1'?1:0;
-                }
-                else if(matrix[i][j]=='1'){
-                    dp[i][j]=dp[i-1][j]+1;
-                }
+                if(matrix[i][j]=='0')
+                    dp[i][j]=0;
+                else
+                    dp[i][j]= i==0?1: 1+dp[i-1][j];
             }
         }
         int max=0;
-        for(int arr[]:dp){
-            int[] prevSmaller=findPrevSmaller(arr);
-            int[] nextSmaller=findNextSmaller(arr);
-            for(int i=0;i<arr.length;i++){
-                int prev=prevSmaller[i];
-                int next=nextSmaller[i];
-                max=Math.max(max,(next-prev-1)*arr[i]);
+        for(int d[]:dp){
+            System.out.println(Arrays.toString(d));
+            int next[]=nextSmaller(d);
+            int prev[]=prevSmaller(d);
+            for(int i=0;i<d.length;i++){
+                max=Math.max((next[i]-prev[i]-1)*d[i],max);
             }
         }
         return max;
+        
     }
-    public int[] findPrevSmaller(int arr[]){
+    public int[] nextSmaller(int arr[]){       // 3 4 5 2 2 1 5 6 
+                                                                
+        int n=arr.length;
+        int ans[]=new int[n];
         Stack<Integer> st=new Stack<>();
-        int ans[]=new int[arr.length];
-        for(int i=0;i<arr.length;i++){
-                while(!st.isEmpty() && arr[i]<=arr[st.peek()]){
-                    st.pop();
-                }
-                ans[i]= st.isEmpty()?-1:st.peek();
-                st.push(i);
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && arr[i]<=arr[st.peek()]){
+                st.pop();
+            }
+            ans[i]=st.isEmpty()?n:st.peek();
+            st.push(i);
         }
-        // System.out.println("Prev Smaller -> "+Arrays.toString(ans));
-       return ans; 
+        return ans;
     }
-    public int[] findNextSmaller(int arr[]){
+    public int[] prevSmaller(int arr[]){       // 3 4 5 2 1 5 6 
+        int n=arr.length;
+        int ans[]=new int[n];
         Stack<Integer> st=new Stack<>();
-        int ans[]=new int[arr.length];
-        for(int i=arr.length-1;i>=0;i--){
-                while(!st.isEmpty() && arr[i]<=arr[st.peek()]){
-                    st.pop();
-                }
-                ans[i]= st.isEmpty()?arr.length:st.peek();
-                st.push(i);
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && arr[i]<=arr[st.peek()]){
+                st.pop();
+            }
+            ans[i]=st.isEmpty()?-1:st.peek();
+            st.push(i);
         }
-        // System.out.println("Next Smaller -> "+Arrays.toString(ans));
-       return ans; 
+        return ans;
     }
 }
