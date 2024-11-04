@@ -13,40 +13,35 @@
  *     }
  * }
  */
-class TreeInfo{
-    boolean isBST;
-    int min,max,sum,totalSum,size;
-    TreeInfo(boolean isBst,int min,int max,int sum){
-        this.isBST=isBst;
-        this.min=min;
-        this.max=max;
-        this.sum=sum;
-    }
-}
 class Solution {
-   
+    int max=0;
     public int maxSumBST(TreeNode root) {
-        int ans[]=new int[1];
-        helper(root,ans);
-        return ans[0];
+        helper(root);
+        return max;
     }
-    public TreeInfo helper(TreeNode tree,int ans[]){
-        if(tree==null)
-            return new TreeInfo(true,Integer.MAX_VALUE,Integer.MIN_VALUE,0);
-        
-        TreeInfo left=helper(tree.left,ans);
-        TreeInfo right=helper(tree.right,ans);
-        boolean isBST=left!=null && right!=null && left.isBST && right.isBST && tree.val>left.max && tree.val<right.min;
-        
-        if(isBST){
-            int sum=left.sum+right.sum+tree.val;
-           ans[0]=Math.max(ans[0],sum);
-            return new TreeInfo(isBST,Math.min(tree.val,left.min),Math.max(tree.val,right.max),sum);       
-        }
-        else
+    public TreeInfo helper(TreeNode root){
+        if(root==null)
+            return new TreeInfo(Integer.MAX_VALUE,Integer.MIN_VALUE,true,0);
+        TreeInfo left=helper(root.left);
+        TreeInfo right=helper(root.right);
+        boolean bst=left!=null && right!=null && left.isBst && right.isBst && root.val>left.max && root.val<right.min;
+        if(bst){
+            int s=left.sum+right.sum+root.val;
+            max=Math.max(max,s);
+            return new TreeInfo(Math.min(left.min,root.val), Math.max(root.val,right.max),bst,s);
+        }else
             return null;
         
-
     }
-    
+}
+class TreeInfo{
+    int min,max;
+    boolean isBst;
+    int sum=0;
+    TreeInfo(int min,int max,boolean isBst,int sum){
+        this.min=min;
+        this.max=max;
+        this.isBst=isBst;
+        this.sum=sum;
+    }
 }
