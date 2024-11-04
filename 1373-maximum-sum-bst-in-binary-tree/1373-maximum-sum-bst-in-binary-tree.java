@@ -36,13 +36,16 @@ class Solution {
         
         TreeInfo left=helper(tree.left,ans);
         TreeInfo right=helper(tree.right,ans);
-        boolean isBST=left.isBST && right.isBST && tree.val>left.max && tree.val<right.min;
-        int sum=left.sum+right.sum+tree.val;
+        boolean isBST=left!=null && right!=null && left.isBST && right.isBST && tree.val>left.max && tree.val<right.min;
+        
         if(isBST){
+            int sum=left.sum+right.sum+tree.val;
            ans[0]=Math.max(ans[0],sum);
-                
+            return new TreeInfo(isBST,Math.min(tree.val,left.min),Math.max(tree.val,right.max),sum);       
         }
-        return new TreeInfo(isBST,Math.min(tree.val,left.min),Math.max(tree.val,right.max),sum);
+        else
+            return null;
+        
 
     }
     
