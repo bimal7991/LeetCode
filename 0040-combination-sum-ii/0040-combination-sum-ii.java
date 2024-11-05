@@ -1,26 +1,27 @@
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-            Arrays.sort(candidates);
-            List<List<Integer>> list=new ArrayList<>();
-            helper(list,candidates,target,0,new ArrayList<>(),0);
-        return list;
+        Arrays.sort(candidates);
+        List<List<Integer>> ans=new ArrayList<>();
+        helper(0,target,candidates,0,new ArrayList<>(),ans);
+        return ans;
     }
-    public void helper(List<List<Integer>> list,int nums[],int target,int i,List<Integer> sub,int sum){
+    void helper(int sum,int target,int candidates[],int i,List<Integer> sub,List<List<Integer>> ans){
         
-        if(target==sum){
-            list.add(new ArrayList<>(sub));
+        if(sum==target)
+        {
+            ans.add(new ArrayList<>(sub));
             return;
         }
-        if(i==nums.length || sum>target)
+        if(sum>target || i==candidates.length)
             return;
-        
-        for(int j=i;j<nums.length;j++){
-            if(j>i && nums[j]==nums[j-1])
+        for(int j=i;j<candidates.length;j++){
+            if(j>i && candidates[j]==candidates[j-1])
                 continue;
-            sub.add(nums[j]);
-            helper(list,nums,target,j+1,sub,sum+nums[j]);
-            sub.remove(sub.size()-1);
+            sum=sum+candidates[j];
+            sub.add(candidates[j]);
+            helper(sum,target,candidates,j+1,sub,ans);
+            sum=sum-candidates[j];
+            sub.remove(sub.size()-1);                   
         }
-        
     }
 }
