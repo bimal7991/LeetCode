@@ -1,9 +1,19 @@
 class Solution {
     public int minCut(String s) {
-    int dp[][]=new int[s.length()][s.length()];
-    for(int d[]:dp)
-        Arrays.fill(d,-1);
-        return helper(0,0,s,dp);
+    int dp[]=new int[s.length()];
+
+        int min;
+        for(int i=0;i<s.length();i++){
+            min=i;
+            for(int j=0;j<=i;j++){
+                if(isPalindrome(j,i,s))
+                    min=j==0?0:Math.min(min,1+dp[j-1])  ;
+            }
+            dp[i]=min;
+        }
+        return dp[s.length()-1];
+        
+        
     }
     public int helper(int i,int j,String s,int dp[][]){
          
