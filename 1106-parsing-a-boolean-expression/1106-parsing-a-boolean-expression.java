@@ -1,25 +1,36 @@
 class Solution {
-    public boolean parseBoolExpr(String expression) {
-        Deque<Character> stk = new ArrayDeque<>();
-        for (int i = 0; i < expression.length(); ++i) {
-            char c = expression.charAt(i);
-            if (c == ')') {
-                Set<Character> seen = new HashSet<>();
-                while (stk.peek() != '(')
-                    seen.add(stk.pop());
-                stk.pop();// pop out '('.
-                char operator = stk.pop(); // get operator for current expression.
-                if (operator == '&') {
-                    stk.push(seen.contains('f') ? 'f' : 't'); // if there is any 'f', & expression results to 'f'
-                }else if (operator == '|') {
-                    stk.push(seen.contains('t') ? 't' : 'f'); // if there is any 't', | expression results to 't'
-                }else { // ! expression.
-                    stk.push(seen.contains('t') ? 'f' : 't'); // Logical NOT flips the expression.
+    public boolean parseBoolExpr(String s) {
+       Stack<Character> st=new Stack<>();
+        for(char c:s.toCharArray()){
+            if(c=='(' ||  c==',')
+                continue;
+            if(c=='&' || c=='!' || c=='|' || c=='f' || c=='t')
+                st.push(c);
+            else{
+                int countT=0;
+                int count=0;
+                while(st.peek()!='|' && st.peek()!='&' && st.peek()!='!')
+                {
+                    char t=st.pop();
+                    if(t=='t')
+                        countT++;
+                    count++;
                 }
-            }else if (c != ',') {
-                stk.push(c);
+                char op=st.pop();
+                boolean v=false;
+                if(op=='|')
+                    v= countT>0?true:false;
+                else if(op=='&')
+                    v= (countT==count)?true:false;
+                else 
+                    v=countT>0?false:true;
+                if(v)
+                    st.push('t');
+                else
+                    st.push('f');
+                    
             }
         }
-        return stk.pop() == 't';
+        return st.peek()=='t';
     }
 }
