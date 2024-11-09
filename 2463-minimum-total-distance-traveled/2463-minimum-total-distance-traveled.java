@@ -1,20 +1,29 @@
 class Solution {
     public long minimumTotalDistance(List<Integer> robot, int[][] factory) {
-        int m = robot.size(), n = factory.length;
-        long[][] dp = new long[m + 1][n + 1];
-        Arrays.sort(factory, (f1, f2) -> f1[0] - f2[0]);
-        Collections.sort(robot);
-        for (int i = 1; i <= m; i++) dp[i][0] = 200000000001L; // impossible to move robots when there is no factory
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                dp[i + 1][j + 1] = dp[i + 1][j];
-                long v = 0;
-                for (int k = i; k >= 0 && k > i - factory[j][1]; k--) {
-                    v += Math.abs(factory[j][0] - robot.get(k));
-                    dp[i + 1][j + 1] = Math.min(dp[i + 1][j + 1], dp[k][j] + v);
-                }
-            }
+        List<Integer> factP=new ArrayList<>();
+        for(int f[]:factory){
+            for(int i=0;i<f[1];i++)
+                factP.add(f[0]);
         }
-        return dp[m][n];
+        Collections.sort(factP);
+        Collections.sort(robot);
+        long dp[][]=new long[robot.size()][factP.size()];
+        for(long d[]:dp)
+            Arrays.fill(d,-1);
+        return helper(0,0,robot,factP,dp);
+    }
+    long helper(int r,int f,List<Integer> robot,List<Integer> factory,long dp[][]){
+        
+        if(r==robot.size())
+            return 0;
+         if(f==factory.size())
+             return 200000000001L;
+        if(dp[r][f]!=-1)
+            return dp[r][f];
+        
+        long diff=Math.abs(robot.get(r)-factory.get(f));
+        long take=diff+helper(r+1,f+1,robot,factory,dp);
+        long notTake=helper(r,f+1,robot,factory,dp);
+        return dp[r][f]=Math.min(take,notTake);
     }
 }
