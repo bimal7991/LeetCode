@@ -7,13 +7,19 @@ class MyCalendar {
     }
     
     public boolean book(int start, int end) {
-        Integer floorKey=treemap.floorKey(start);
-        if(floorKey!=null && treemap.get(floorKey)>start)
-            return false;
-        Integer ceilingKey=treemap.ceilingKey(start);
-        if(ceilingKey!=null && ceilingKey<end)
-            return false;
-        treemap.put(start,end);
+        treemap.put(start,treemap.getOrDefault(start,0)+1);
+        treemap.put(end,treemap.getOrDefault(end,0)-1);
+        int count=0;
+        for(int key:treemap.keySet()){
+            count+=treemap.get(key);
+            if(count>1)
+            {
+                treemap.put(start,treemap.getOrDefault(start,0)-1);
+                treemap.put(end,treemap.getOrDefault(end,0)+1);
+                return false;
+                
+            }
+        }
         return true;
     }
 }
