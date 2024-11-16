@@ -16,7 +16,7 @@ class Solution {
             for(NodeDis next:list[curr.node]){
                 if(res[next.node]>res[curr.node]+next.weight){
                     res[next.node]=res[curr.node]+next.weight;
-                    pq.add(next);
+                    pq.add(new NodeDis(next.node,res[next.node]));
                 }
             }
         }
