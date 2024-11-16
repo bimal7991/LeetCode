@@ -21,13 +21,18 @@ class Solution {
   }
     int countPairs(int nums[],int mid){
         int n=nums.length;
-        int count=0;
-        for(int i=0;i<n;i++){
-            int j=i;
-            while(j<n && nums[j]-nums[i]<=mid){
-                j++;
-            }
-            count+=(j-i-1);
+        int i=0;
+        int j=0,count=0;
+         while(j<n){
+                if(nums[j]-nums[i]>mid){
+                    i++;
+                }
+             else
+             {
+                 count+=j-i;
+                 j++;
+             }
+                 
         }
         return count;
     }
