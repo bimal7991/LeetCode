@@ -1,4 +1,5 @@
 class Solution {
+    int dis[];
     public int[] shortestDistanceAfterQueries(int n, int[][] queries) {
         ArrayList<Integer> arr[]=new ArrayList[n];
         for(int i=0;i<n;i++){
@@ -8,20 +9,21 @@ class Solution {
             arr[i].add(i+1);
         }
         int ans[]=new int[queries.length];
-        int i=0;
+        
+        dis=new int[n];
+        for(int i=0;i<n;i++)
+            dis[i]=i;
+            int i=0;
         for(int q[]:queries){
             arr[q[0]].add(q[1]);
-            int res=bfs(arr,n);
+            int res=bfs(arr,n,q[0]);
             ans[i++]=res;
         }
         return ans;
     }
-    int bfs(ArrayList<Integer> arr[],int n){
-        int dis[]=new int[n];
-        Arrays.fill(dis,Integer.MAX_VALUE);
+    int bfs(ArrayList<Integer> arr[],int n,int start){
         Queue<Integer> q=new LinkedList<>();
-        q.add(0);
-        dis[0]=0;
+        q.add(start);
         while(!q.isEmpty()){
             int node=q.poll();
              for(int c:arr[node]){
